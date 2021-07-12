@@ -22,3 +22,34 @@ function get_airfoil(; af_fname, cr75, Re_exp)
 
     return af, mach, reynolds, rotation, tip
 end
+
+function g2nl(A::ComponentVector)
+
+    # A ComponentVector always has one axis, but getaxes will return a length-1
+    # tuple, hence the [1] indexing. This returns an Axis object, which contains
+    # the information for the mapping from a name to the indices associated with
+    # the name.
+    ax = getaxes(A)[1]
+    # And this takes the Axis object and turns it into a named tuple.
+    idxmap = ComponentArrays.indexmap(ax)
+    # Now keys(idxmap) returns all the names of the component array's axis.
+
+    global2namelocal = []
+    for name in keys(idxmap)
+      v = idxmap[name]
+      i = 1
+      if typeof(v) <: ComponentArrays.ViewAxis
+        for _ in ComponentArrays.viewindex(v)
+          push!(global2namelocal, [name, i])
+          i += 1
+        end
+      else
+        for _ in v
+          push!(global2namelocal, [name, i])
+          i += 1
+        end
+      end
+    end
+
+    return global2namelocal
+end
