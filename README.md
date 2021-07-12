@@ -28,9 +28,9 @@ theory code, within an [OpenMDAO](https://openmdao.org/) optimization.
   That should download and install all the Julia dependencies.
 
 ## Running it
-There are two scripts you can run, both in `scripts`. `run.py` is how I used to
-set up OpenMDAO optimizations with Julia, and `run_ca.py` is a much better
-version that uses a Julia package called
+There are two scripts you can run, both in `scripts`. `run.py` uses code that
+shows how I used to set up OpenMDAO optimizations with Julia, and `run_ca.py`
+runs a much better version that uses a Julia package called
 [ComponentArrays](https://github.com/jonniedie/ComponentArrays.jl). The scripts
 are currently set up to use the proprietary SNOPT optimizer via
 [pyOptSparse](https://github.com/mdolab/pyoptsparse). I'm told it will also work
